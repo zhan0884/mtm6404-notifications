@@ -1,2 +1,4 @@
-# mtm6404-notifications
-This repository contains the starter files for the Notification project
+# Notifications
+
+## Objective
+Use React, Vite, and the provided starter files to create an application to display a list of notifications. The user should be able to clear individual notifications or all notifications.
