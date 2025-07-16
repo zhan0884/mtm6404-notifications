@@ -1,34 +1,41 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import initialData from './notifications'
+import NotificationList from './NotificationList'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [data, setData] = useState(initialData)
+
+/*************  ✨ Windsurf Command ⭐  *************/
+  /**
+   * Removes a notification by its id from the current list of notifications.
+   * 
+/*******  4cb05180-eb1b-4110-8f25-d484b58fac60  *******/
+  const removeOne = (id) => {
+    setData(data.filter(note => note.id !== id))
+  }
+
+  const clearAll = () => {
+    setData([])
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="container">
+      <Header count={data.length} onClearAll={clearAll}>
+        <h1>Notifications</h1>
+      </Header>
+      <NotificationList notifications={data} onRemove={removeOne} />
     </div>
   )
 }
 
-export default App
+// This uses the children prop 👇
+function Header({ count, onClearAll, children }) {
+  return (
+    <header style={{ marginBottom: '20px' }}>
+      {children}
+      <p>{count} notification(s)</p>
+      <button onClick={onClearAll}>Clear All</button>
+    </header>
+  )
+}
